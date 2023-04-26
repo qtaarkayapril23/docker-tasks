@@ -1,0 +1,40 @@
+---
+version: '3.9'
+services:
+  scr:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: scrmulti
+    networks:
+      - scr-bridge
+    environment:
+      - MYSQL_SERVER=mysqlscr  
+    ports:
+      - 33500:8080
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8
+    container_name: mysqlscr
+    networks:
+      - scr-bridge
+    volumes:
+      - type: volume
+        source: mysqlscr-vol
+        target: /var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=qtuser
+      - MYSQL_PASSWORD=srikanth
+      - MYSQL_DATABASE=test
+networks:
+  scr-bridge:
+    name: scr-bridge
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.0.0/24"
+volumes:
+  mysqlscr-vol:
+    name: mysqlscr-vol
