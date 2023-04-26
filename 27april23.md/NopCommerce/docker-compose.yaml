@@ -1,0 +1,40 @@
+---
+version: '3.9'
+services:
+  nop:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nopsql
+    environment:
+      - MYSQL_SERVER=mysql
+    networks:
+      - nop-bridge
+    ports:
+      - "32000:5000"
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_USER=qtuser
+      - MYSQL_PASSWORD=aarkay
+      - MYSQL_DATABASE=test
+    networks:
+      - nop-bridge
+    volumes:
+      - type: volume
+        source: mysqlvol
+        target: /var/lib/mysql
+networks:
+  nop-bridge:
+    name: nop-bridge
+    driver: bridge
+    ipam:
+      config:
+        - subnet: "10.0.0.0/24"
+volumes:
+  mysqlvol:
+    name: mysqlvol
