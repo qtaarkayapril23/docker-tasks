@@ -1,0 +1,10 @@
+---
+version: '3.9'
+services:
+  spc:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: spc
+    ports:
+      - 32500:8080
