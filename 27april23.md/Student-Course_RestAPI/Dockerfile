@@ -1,3 +1,6 @@
+FROM alpine/git AS VCS
+RUN cd / && git clone https://github.com/DevProjectsForDevOps/StudentCoursesRestAPI.git
+
 FROM python:3.8-alpine
 LABEL LABEL author="srikanth" org="qt" project="multistage-scr"
 ARG HOME_DIR=/StudentCoursesRestAPI
