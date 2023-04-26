@@ -141,33 +141,54 @@ python app.py
 ### Multi Stage Dockerfile
 
 * [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/Student-Course_RestAPI/Dockerfile) for the dockerfile called student-course-restapi.
-FROM alpine/git AS VCS
-RUN cd / && git clone https://github.com/DevProjectsForDevOps/StudentCoursesRestAPI.git
+
+* To create docker image build and run the container
+* We can execute the below commands 
+```
+docker image build -t scrmulti:1.0 .
+docker container run -d -P --name scrmulti scrmulti:1.0
+```
+![Preview] 
+![Preview] 
+![Preview] 
 
 
-Docker image build and Container run
-docker image build -t scrmulti:v1.0 .
-docker container run -d -P --name scrmulti scrmulti:v1.0
-preview preview preview 2. Pushed to docker hub
+### Pushed to docker hub
 
+```
 docker login
-docker image tag scrmulti:v1.0 srikanthvelma/scr:v1.0
-docker image push srikanthvelma/scr:v1.0
-preview 3. Pushed to Azure ACR
+docker image tag scrmulti:1.0 rajkuamr207/scr:1.0
+docker image push rajkumar207/scr:1.0
+```
+![Preview] 
+
+
+### Pushed to Azure ACR
 
 already login to docker and acr -refer above to login procedure in spc
 as i build image in docker playground..didnot signed in ACR in that machine
 so pulling image from docker hub
-docker image pull srikanthvelma/scr:v1.0
-docker image tag srikanthvelma/scr:v1.0 srdockerimages.azurecr.io/scr:v1.0
-docker image push srdockerimages.azurecr.io/scr:v1.0 
-preview preview
 
-Docker-Compose File For SCR
+```
+docker image pull rajkumar207/scr:1.0
+docker image tag rajkumar207/scr:1.0 srdockerimages.azurecr.io/scr:1.0
+docker image push srdockerimages.azurecr.io/scr:1.0 
+```
+![Preview] 
+![Preview]
 
+### Docker-Compose File For SCR
+
+* [Refer Here]
+
+```
 docker compose up -d
 docker compose down #if u want to down the containers
-preview preview preview preview
+```
+![Preview] 
+![Preview]
+![Preview] 
+![Preview]
 
 Running containers with specific User
 To run containers with specific user , we have to create user and group
@@ -209,4 +230,5 @@ WORKDIR ${HOME_DIR}
 COPY --from=Builder /spring-petclinic/target/spring-*.jar ${HOME_DIR}/spring-petclinc.jar
 EXPOSE 8080
 CMD [ "java","-jar","spring-petclinc.jar" ]
-preview
+
+![Preview]
