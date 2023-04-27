@@ -52,7 +52,7 @@ docker image push rajkumar207/nopcommerce:1.0
 az login
 az acr login --name dockerimages
 docker login dockerimages.azurecr.io
-docker image tag rajkumar207/nopcommerce:v1.0 dockerimages.azurecr.io/nopcommerce:1.0
+docker image tag rajkumar207/nopcommerce:1.0 dockerimages.azurecr.io/nopcommerce:1.0
 docker image push dockerimages.azurecr.io/nopcommerce:1.0
 ```
 
@@ -67,7 +67,7 @@ docker image push dockerimages.azurecr.io/nopcommerce:1.0
 
 ```
 docker compose up -d
-docker compose down # if u want to down conatiners
+docker compose down (#If you want to down conatiners)
 ```
 ![Preview](Images/docker7.png) 
 ![Preview](Images/docker8.png) 
@@ -111,25 +111,30 @@ username: rajkumar207
 password: RRajkumar4@GGummadi
 docker image push rajkumar207/spclinic:1.0
 ```
-![Preview](Images/docker12.png) 
+![Preview](Images/docker12.png)
+![Preview](Images/docker15.png) 
 
 
 ### Pushed to Azure ACR
 
 ```
 az login
-az acr login --name srdockerimages
+az acr login --name dockerimages
 docker login dockerimages.azurecr.io
 docker image tag rajkumar207/spc:1.0 dockerimages.azurecr.io/spc:1.0
 docker image push dockerimages.azurecr.io/spc:1.0
 ```
 
-Docker-Compose File for SPC
+### Docker-Compose File for SPC
 
 * [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/Spring-Petclinic/docker-compose.yaml) for the file called docker-compose.yaml
 
-![Preview] 
-![Preview]
+```
+docker compose up -d
+docker compose down (#If you want to down the containers)
+```
+![Preview](Images/docker14.png) 
+![Preview](Images/docker16.png)
 
 
 Students Courses Register RestAPI
@@ -154,37 +159,39 @@ python app.py
 * To create docker image build and run the container
 * We can execute the below commands 
 ```
-docker image build -t scrmulti:1.0 .
-docker container run -d -P --name scrmulti scrmulti:1.0
+docker image build -t scrrestapi:1.0 .
+docker image ls
+docker container run -d -P --name scrrestapi scrrestapi:1.0
+docker container ls
 ```
-![Preview] 
-![Preview] 
-![Preview] 
+![Preview](Images/docker17.png) 
+![Preview](Images/docker18.png) 
+![Preview](Images/docker19.png) 
 
 
 ### Pushing the Image to dockerhub
 
 ```
+docker image tag scrrestapi:1.0 rajkuamr207/scr:1.0
 docker login
-docker image tag scrmulti:1.0 rajkuamr207/scr:1.0
-docker image push rajkumar207/scr:1.0
+username: rajkumar207
+password: RRajkumar4@GGummadi
+docker image push rajkumar207/scrrestapi:1.0
 ```
-![Preview] 
+![Preview](Images/docker20.png) 
 
 
 ### Pushed to Azure ACR
 
-already login to docker and acr -refer above to login procedure in spc
+* Already login to docker and acr -refer above to login procedure in spc
 as i build image in docker playground..didnot signed in ACR in that machine
 so pulling image from docker hub
 
 ```
-docker image pull rajkumar207/scr:1.0
-docker image tag rajkumar207/scr:1.0 srdockerimages.azurecr.io/scr:1.0
-docker image push srdockerimages.azurecr.io/scr:1.0 
+docker image pull rajkumar207/restapi:1.0
+docker image tag rajkumar207/restapi:1.0 dockerimages.azurecr.io/scr:1.0
+docker image push dockerimages.azurecr.io/scr:1.0 
 ```
-![Preview] 
-![Preview]
 
 ### Docker-Compose File For SCR
 
