@@ -201,10 +201,10 @@ docker image push dockerimages.azurecr.io/scr:1.0
 docker compose up -d
 docker compose down (#if u want to down the containers)
 ```
-![Preview] 
-![Preview]
-![Preview] 
-![Preview]
+![Preview](Images/docker21.png) 
+![Preview](Images/docker22.png)
+![Preview](Images/docker23.png) 
+![Preview](Images/docker24.png)
 
 
 
@@ -217,7 +217,7 @@ Running containers with specific User
 * Commands will be as per os image
 * FOR Ubuntu Example of nopCommerce
 
-
+```
 ARG user=nopcommerce
 ARG group=nopcommerce
 ARG uid=1000
@@ -229,32 +229,21 @@ RUN groupadd -g ${gid} ${group} \
     && useradd -d "$HOME_DIR" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 USER ${user}
 WORKDIR ${HOME_DIR}
-
+```
 
 * FOR alpine os
 * Spring pet clinic
 
+* [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/specific%20user%20spring-petclinic/Dockerfile) for the specific user of spring-petclinic.
 
-FROM alpine/git AS VCS
-RUN cd / && git clone https://github.com/spring-projects/spring-petclinic.git 
+```
+docker image build -t spc:1.0 .
+docker image ls
+docker container run -d -P --name spclinic spc:1.0
+docker container ls
+docker container exec -it spclinic /bin/sh
+whoami
 
-FROM maven:3.9-amazoncorretto-17 AS Builder
-COPY --from=VCS /spring-petclinic /spring-petclinic
-RUN cd /spring-petclinic && mvn package
 
-FROM amazoncorretto:17-alpine-jdk
-LABEL author="aarkay" org="qt" project="multistage-spc"
-ARG HOME_DIR=/spring-petclinic
-ARG USER=dev
-ARG GROUP=dev
-ARG UID=1000
-ARG GID=1000
-RUN addgroup -g ${GID} ${GROUP} && \
-adduser -h ${HOME_DIR} -u ${UID} -G ${GROUP} -D -s /bin/bash ${USER}
-USER ${USER}
-WORKDIR ${HOME_DIR}
-COPY --from=Builder /spring-petclinic/target/spring-*.jar ${HOME_DIR}/spring-petclinc.jar
-EXPOSE 8080
-CMD [ "java","-jar","spring-petclinc.jar" ]
 
 ![Preview]
