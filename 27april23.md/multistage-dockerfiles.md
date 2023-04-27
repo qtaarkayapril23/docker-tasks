@@ -17,19 +17,30 @@ Nop Commerce Application
     * Here we can use multi satge docker file
 
 * [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/NopCommerce/Dockerfile) for the nopcommerce dockerfile.
-![Preview]  
-![Preview]
+
+```
+docker image build -t nopcommerce:1.0 .
+docker image ls
+docker container run -d -P --name msnopcommerce nopcommerce:1.0
+docker container ls
+```
+![Preview](Images/docker1.png)  
+![Preview](Images/docker2.png)
+![Preview](Images/docker3.png)
 
 
-### Pushing to Docker image
+### Pushing the Image to dockerhub
 
 ```
 docker image tag nopmulti:1.0 rajkumar207/nopcommerce:1.0
+docker login
+username:  rajkumar207
+password:  RRajkumar4@GGummadi
 docker image push rajkumar207/nopcommerce:1.0
 ```
-![Preview] 
-![Preview] 
-![Preview]
+![Preview](Images/docker4.png) 
+![Preview](Images/docker5.png) 
+![Preview](Images/docker6.png)
 
 
 ### Pusing to Azure Container Registry
@@ -93,7 +104,7 @@ java -jar spring-petclinic.jar
 ![Preview] 
 
 
-### Pushed to docker hub
+### Pushing the Image to dockerhub
 
 ```
 docker image tag spcmulti:1.0 rajkumar207/spc:1.0
@@ -108,8 +119,8 @@ docker image push rajkumar207/spc:1.0
 az login
 az acr login --name srdockerimages
 docker login srdockerimages.azurecr.io
-docker image tag srikanthvelma/spc:v1.0 srdockerimages.azurecr.io/spc:v1.0
-docker image push srdockerimages.azurecr.io/spc:v1.0
+docker image tag rajkumar207/spc:1.0 srdockerimages.azurecr.io/spc:1.0
+docker image push srdockerimages.azurecr.io/spc:1.0
 ```
 ![Preview] 
 ![Preview] 
@@ -153,7 +164,7 @@ docker container run -d -P --name scrmulti scrmulti:1.0
 ![Preview] 
 
 
-### Pushed to docker hub
+### Pushing the Image to dockerhub
 
 ```
 docker login
@@ -179,23 +190,29 @@ docker image push srdockerimages.azurecr.io/scr:1.0
 
 ### Docker-Compose File For SCR
 
-* [Refer Here]
+* [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/Student-Course_RestAPI/docker-compose.yaml) for the spring petclinic file called docker-compose.yaml
 
 ```
 docker compose up -d
-docker compose down #if u want to down the containers
+docker compose down (#if u want to down the containers)
 ```
 ![Preview] 
 ![Preview]
 ![Preview] 
 ![Preview]
 
+
+
 Running containers with specific User
-To run containers with specific user , we have to create user and group
-We have use USER and WORK_DIR directives in Dockerfile
-To Create a user and group in Dockerfile
-Commands will be as per os image
-FOR Ubuntu Example of nopCommerce
+-------------------------------------
+
+* To run containers with specific user , we have to create user and group
+* We have use `USER` and `WORK_DIR` directives in Dockerfile
+* To Create a user and group in Dockerfile
+* Commands will be as per os image
+* FOR Ubuntu Example of nopCommerce
+
+
 ARG user=nopcommerce
 ARG group=nopcommerce
 ARG uid=1000
@@ -207,8 +224,12 @@ RUN groupadd -g ${gid} ${group} \
     && useradd -d "$HOME_DIR" -u ${uid} -g ${gid} -m -s /bin/bash ${user}
 USER ${user}
 WORKDIR ${HOME_DIR}
-FOR alpine os
-Spring pet clinic
+
+
+* FOR alpine os
+* Spring pet clinic
+
+
 FROM alpine/git AS VCS
 RUN cd / && git clone https://github.com/spring-projects/spring-petclinic.git 
 
@@ -217,7 +238,7 @@ COPY --from=VCS /spring-petclinic /spring-petclinic
 RUN cd /spring-petclinic && mvn package
 
 FROM amazoncorretto:17-alpine-jdk
-LABEL author="srikanth" org="qt" project="multistage-spc"
+LABEL author="aarkay" org="qt" project="multistage-spc"
 ARG HOME_DIR=/spring-petclinic
 ARG USER=dev
 ARG GROUP=dev
