@@ -32,7 +32,7 @@ docker container ls
 ### Pushing the Image to dockerhub
 
 ```
-docker image tag nopmulti:1.0 rajkumar207/nopcommerce:1.0
+docker image tag nopcommerce:1.0 rajkumar207/nopcommerce:1.0
 docker login
 username:  rajkumar207
 password:  RRajkumar4@GGummadi
@@ -45,28 +45,20 @@ docker image push rajkumar207/nopcommerce:1.0
 
 ### Pusing to Azure Container Registry
 
-* For container registry creation and pushing [refer][https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli] 
-![Preview] 
-![Preview] 
-![Preview]
+* For container registry creation and pushing [Refer Here](https://learn.microsoft.com/en-us/azure/container-registry/container-registry-get-started-portal?tabs=azure-cli)
 
 
 ```
 az login
-az acr login --name srdockerimages
-docker login srdockerimages.azurecr.io
-docker image tag srikanthvelma/nopcommerce:v1.0 srdockerimages.azurecr.io/nopcommerce:v1.0
-docker image push srdockerimages.azurecr.io/nopcommerce:v1.0
+az acr login --name dockerimages
+docker login dockerimages.azurecr.io
+docker image tag rajkumar207/nopcommerce:v1.0 dockerimages.azurecr.io/nopcommerce:1.0
+docker image push dockerimages.azurecr.io/nopcommerce:1.0
 ```
 
 * Here faced a issue with authorization and region
 * Created access keys and given username and password from access keys
 * Created in the region of East US, with region central india error came 
-![Preview] 
-![Preview] 
-![Preview]
-![Preview] 
-![Preview]
 
 
 ### Docker Compose File - nopCommerce
@@ -77,9 +69,9 @@ docker image push srdockerimages.azurecr.io/nopcommerce:v1.0
 docker compose up -d
 docker compose down # if u want to down conatiners
 ```
-![Preview] 
-![Preview] 
-![Preview]
+![Preview](Images/docker7.png) 
+![Preview](Images/docker8.png) 
+![Preview](Images/docker9.png)
 
 
 Spring-Petclinc Application
@@ -100,17 +92,26 @@ java -jar spring-petclinic.jar
 
 * [Refer Here](https://github.com/qtaarkayapril23/docker-tasks/blob/main/27april23.md/Spring-Petclinic/Dockerfile) for the spring-petclinic dockerfile.
 
-![Preview] 
-![Preview] 
-
+```
+docker image build -t spc:1.0 .
+docker image ls
+docker container run -d -P --name spclinic spc:1.0
+docker container ls
+```
+![Preview](Images/docker10.png) 
+![Preview](Images/docker11.png) 
+![Preview](Images/docker13.png)
 
 ### Pushing the Image to dockerhub
 
 ```
-docker image tag spcmulti:1.0 rajkumar207/spc:1.0
-docker image push rajkumar207/spc:1.0
+docker image tag spc:1.0 rajkumar207/spclinic:1.0
+docker login
+username: rajkumar207
+password: RRajkumar4@GGummadi
+docker image push rajkumar207/spclinic:1.0
 ```
-![Preview] 
+![Preview](Images/docker12.png) 
 
 
 ### Pushed to Azure ACR
@@ -118,13 +119,10 @@ docker image push rajkumar207/spc:1.0
 ```
 az login
 az acr login --name srdockerimages
-docker login srdockerimages.azurecr.io
-docker image tag rajkumar207/spc:1.0 srdockerimages.azurecr.io/spc:1.0
-docker image push srdockerimages.azurecr.io/spc:1.0
+docker login dockerimages.azurecr.io
+docker image tag rajkumar207/spc:1.0 dockerimages.azurecr.io/spc:1.0
+docker image push dockerimages.azurecr.io/spc:1.0
 ```
-![Preview] 
-![Preview] 
-![Preview]
 
 Docker-Compose File for SPC
 

@@ -6,7 +6,7 @@ COPY --from=VCS /spring-petclinic /spring-petclinic
 RUN cd /spring-petclinic && mvn package
 
 FROM amazoncorretto:17-alpine-jdk
-LABEL author="srikanth" org="qt" project="multistage-spc"
+LABEL author="aarkay" org="qt" project="multistage-spc"
 ARG HOME_DIR=/spring-petclinic
 WORKDIR ${HOME_DIR}
 COPY --from=Builder /spring-petclinic/target/spring-*.jar ${HOME_DIR}/spring-petclinc.jar
