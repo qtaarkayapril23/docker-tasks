@@ -243,7 +243,10 @@ docker container run -d -P --name spclinic spc:1.0
 docker container ls
 docker container exec -it spclinic /bin/sh
 whoami
+```
+
+![Preview](Images/docker25.png)
 
 
-
-![Preview]
+* *THANKYOU FOR READING!*
+![Preview](Images/Thankyou%20.png)
