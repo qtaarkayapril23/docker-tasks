@@ -249,4 +249,5 @@ whoami
 
 
 * *THANKYOU FOR READING!*
+
 ![Preview](Images/Thankyou%20.png)
